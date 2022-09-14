@@ -16,8 +16,9 @@ catch (err) {res.status(500).json({msg:err})}
 }
 const getPosters=async function(req,res){
     try {
-        const posters=await Post.find({}).populate({path:"Owner",select:"-Password -__v"})
-        res.status(200).json(posters)
+        const posters=await Post.find({}).lean().populate({path:"Owner",select:"-Password -__v"})
+          
+          res.status(200).json(posters)
         
     } catch(err){res.status(500).json({msg:err})}
 }

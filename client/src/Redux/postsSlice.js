@@ -16,7 +16,7 @@ export const getPosters=createAsyncThunk("posters/getPosters",async function (_,
 }
     catch(err){return rejectWithValue(err.response.data.msg)}
 })
-export const addPoster=createAsyncThunk("addPoster/posters",async function (formData,{rejectWithValue}) {
+export const addPoster=createAsyncThunk("addPoster/posters",async function (formData,{rejectWithValue,dispatch}) {
 
     try {
         let reqInstance = axios.create( {
@@ -25,6 +25,7 @@ export const addPoster=createAsyncThunk("addPoster/posters",async function (form
                 }
           })
         const {data}=await reqInstance.post("http://localhost:8081/Poster",formData)
+        dispatch(getPosters())
         return data
     } catch (err) {return rejectWithValue(err.response.data.msg)}
 })
